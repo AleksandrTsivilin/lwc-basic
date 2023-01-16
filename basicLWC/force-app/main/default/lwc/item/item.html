@@ -1,0 +1,36 @@
+<template>
+    <td data-label="Some Custom Column">
+        <div class="slds-truncate">
+            {row.Name}
+        </div>
+    </td>
+    <td data-label="Some Custom Column">
+        <div class="slds-truncate">
+            {row.Total_Price__c}
+        </div>
+    </td>
+    <td data-label="Some Custom Column">
+        <div class="slds-truncate">
+            {row.Margin__c}
+        </div>
+    </td>
+    <td data-label="Some Custom Column">
+        <div class="slds-truncate">
+            {row.Status__c}
+        </div>
+    </td>
+    <td data-label="Some Custom Column">
+        <lightning-button-menu 
+            alternative-text="Show menu" 
+            onselect={actionHandler}
+            disabled={isDisabled}
+            icon-size="small"
+        >
+            <template for:each={actions} for:item="action" for:index="i">
+                <lightning-menu-item key={action.name} value={action.name} label={action.name} >
+                    
+                </lightning-menu-item>
+            </template>
+        </lightning-button-menu>
+    </td>
+</template>

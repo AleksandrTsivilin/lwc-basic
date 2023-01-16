@@ -1,0 +1,58 @@
+<template>
+    <div class="c-container">
+        <lightning-layout class="slds-align_absolute-center">
+            <lightning-layout-item  padding="around-small">
+                <!-- select category -->
+                <div >
+                   
+                    <!-- <label class="slds-form-element__label" for="select-01">Select Label</label> -->
+                    <div >
+                    <div class="slds-select_container">
+                        <select 
+                            class="slds-select" 
+                            id="select-01" 
+                            onchange={categoryHandler}
+                        >
+                            <option value="">Select category</option>
+                            <template for:each={categories.data} for:item="item">
+                                <option key={item.id} >{item.Name}</option>
+                            </template>                            
+                        </select>
+                    </div>
+                    </div>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <!-- input -->
+                <div >
+                    <!-- <label class="slds-form-element__label" for="form-element-01">Form Label</label> -->
+                    <div >
+                        <input 
+                            label="Equipment"
+                            type="text" 
+                            id="form-element-01" 
+                            placeholder="input equipment" 
+                            class="slds-input" 
+                            onchange={inputHandle}
+                        />
+                    </div>
+                </div>
+            </lightning-layout-item>
+            
+            <lightning-layout-item padding="around-small">
+                <div >
+                    <!-- <label class="slds-form-element__label" for="form-element-01"></label> -->
+                    <div >
+                        <lightning-button 
+                            label="Search"
+                            onclick={onSubmit}
+                            variant="brand"
+                            
+                        ></lightning-button>
+                    </div>
+                </div>
+                
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>

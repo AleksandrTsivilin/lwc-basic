@@ -1,0 +1,69 @@
+<template >
+    <div >
+        <!-- <lightning-layout horizontal-align="spread" class="x-large">
+            <lightning-layout-item 
+                class="slds-align_absolute-center slds-border_bottom" 
+                padding="around-small"
+            >
+                <div class="slds-text-title_caps">equipments</div>
+            </lightning-layout-item>
+            <template if:true={isEmpty}>
+                <lightning-layout-item
+                    class="slds-align_absolute-center"
+                    padding="around-small"
+                >
+                    No items to display
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>  -->
+        <div 
+            class="slds-text-title_caps slds-align_absolute-center slds-border_bottom"
+        >
+            equipments
+        </div>
+        <template if:true={isEmpty}>
+            <div
+                class="slds-align_absolute-center"
+            >
+                No items to display
+            </div>
+        </template>
+        <!-- <template for:each={equipments} for:item="item">
+            <div key={item.Id}>{item.CategoryId__r.Name}</div>
+        </template> -->
+
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-m-top_x-small">
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <template for:each={columns} for:item="column" for:index="i">
+                        <th key={column} scope="col">
+                            <div class="slds-truncate">{column.label}</div>
+                        </th>
+                    </template>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={equipments} for:item="item">
+                    <c-equipment-item 
+                        key={item.Id} 
+                        row={item} 
+                        onselect = {checked}
+                    ></c-equipment-item>                
+                </template>                               
+            </tbody>
+        </table>
+    </div>   
+    <div class="slds-modal__footer">
+        <button 
+            class="slds-button slds-button_neutral" 
+            aria-label="Cancel and close" 
+            onclick={cancel}
+        >Cancel</button>
+        <button 
+            class="slds-button slds-button_brand" 
+            onclick={save}
+            disabled={isDisabled}
+        >Save</button>
+    </div>
+    
+</template>

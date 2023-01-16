@@ -1,0 +1,43 @@
+
+<template>  
+    <!-- <lightning-button 
+            variant="base" 
+            label="add" 
+            title="Looks like a link" 
+            onclick={handleRowAction} 
+            class="slds-m-left_x-small"
+    ></lightning-button> -->
+
+    <c-button
+        label="add"
+        data-action="add"
+        icon-name="icon"
+        onclick={toOpenDialog}
+    >
+    </c-button>
+
+    <template if:true={isShowDialog}>
+        <c-add-item></c-add-item>
+    </template>
+
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-m-top_x-small">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <template for:each={columns} for:item="column" for:index="i">
+                    <th key={column} scope="col">
+                        <div class="slds-truncate">{column.label}</div>
+                    </th>
+                </template>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={proposals.data} for:item="item">
+                <c-item 
+                    key={item.Id} 
+                    row={item} 
+                    onactionitem={handleRowAction}
+                ></c-item>                
+            </template>                               
+        </tbody>
+    </table>
+</template>        

@@ -1,0 +1,39 @@
+<template>
+    <td data-label="Some Custom Column">
+        <div class="slds-truncate">
+            {row.CategoryId__r.Name}
+        </div>
+    </td>
+    <td data-label="Some Custom Column">
+        <div class="slds-truncate">
+            {row.Name}
+        </div>
+    </td>
+    <td data-label="Some Custom Column">
+        <div class="slds-truncate">
+            {row.Cost__c}
+        </div>
+    </td>
+    <td data-label="Some Custom Column">
+        <div class="slds-truncate">
+            <lightning-input
+                type="checkbox"
+                onchange={select}
+            ></lightning-input>
+        </div>
+    </td>
+    <!-- <td data-label="Some Custom Column">
+        <lightning-button-menu 
+            alternative-text="Show menu" 
+            onselect={actionHandler}
+            disabled={isDisabled}
+            icon-size="small"
+        >
+            <template for:each={actions} for:item="action" for:index="i">
+                <lightning-menu-item key={action.name} value={action.name} label={action.name} >
+                    
+                </lightning-menu-item>
+            </template>
+        </lightning-button-menu>
+    </td> -->
+</template>
