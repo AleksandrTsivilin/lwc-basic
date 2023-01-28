@@ -1,20 +1,10 @@
-import getEquipmentsByCategoryWithName from '@salesforce/apex/Equipment.getEquipmentsByCategoryWithName';
 import { LightningElement, track } from 'lwc';
+import getEquipmentsByCategoryWithName from '@salesforce/apex/Equipment.getEquipmentsByCategoryWithName';
 
-export default class AddItem extends LightningElement {
+export default class ProposalForm extends LightningElement {
+   
 
-    title = 'New Proposal'
-    criteria = {
-        search:"",
-        categoryId:""
-    }
-
-    @track equipments=[];
-    
-    close(){
-        console.log('close modal')
-    }
-
+    @track equipments=[]; 
    
 
     searchHandler(event){
@@ -32,6 +22,7 @@ export default class AddItem extends LightningElement {
     
 
     getEquipmentsByCriteria(criteria){
+        console.log('get equ criteria', JSON.stringify(criteria))
         getEquipmentsByCategoryWithName({ 
             name: criteria.search,
             categoryId: criteria.categoryId
@@ -46,7 +37,7 @@ export default class AddItem extends LightningElement {
             });
     }
 
-    
-
-    
+    close(){
+        this.dispatchEvent(new CustomEvent('close'));
+    }
 }

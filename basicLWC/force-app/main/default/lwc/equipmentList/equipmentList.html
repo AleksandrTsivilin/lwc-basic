@@ -1,36 +1,12 @@
 <template >
     <div >
-        <!-- <lightning-layout horizontal-align="spread" class="x-large">
-            <lightning-layout-item 
-                class="slds-align_absolute-center slds-border_bottom" 
-                padding="around-small"
-            >
-                <div class="slds-text-title_caps">equipments</div>
-            </lightning-layout-item>
-            <template if:true={isEmpty}>
-                <lightning-layout-item
-                    class="slds-align_absolute-center"
-                    padding="around-small"
-                >
-                    No items to display
-                </lightning-layout-item>
-            </template>
-        </lightning-layout>  -->
+        
         <div 
-            class="slds-text-title_caps slds-align_absolute-center slds-border_bottom"
+            class="slds-text-title_caps slds-align_absolute-center slds-p-around_small"
         >
             equipments
         </div>
-        <template if:true={isEmpty}>
-            <div
-                class="slds-align_absolute-center"
-            >
-                No items to display
-            </div>
-        </template>
-        <!-- <template for:each={equipments} for:item="item">
-            <div key={item.Id}>{item.CategoryId__r.Name}</div>
-        </template> -->
+        
 
         <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-m-top_x-small">
             <thead>

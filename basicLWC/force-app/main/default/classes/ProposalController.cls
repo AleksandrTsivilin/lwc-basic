@@ -3,7 +3,7 @@ public with sharing class ProposalController {
     public ProposalController() {}
 
     @AuraEnabled(cacheable = true)
-    public static List<Proposal__c> getProposals(){        
+    public static List<Proposal__c> getProposals(ID oppId){        
         try {
 
             return [
@@ -13,6 +13,8 @@ public with sharing class ProposalController {
                     Status__c,
                     Total_Quantity__c 
                 FROM Proposal__c
+                WHERE Opportunity_Id__c = :oppId
+                
             ];
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -44,24 +46,45 @@ public with sharing class ProposalController {
     }
 
     @AuraEnabled
-    public static Object generateProposal(ID proposalId, ID oppId){
+    public static string generateProposal(ID proposalId, ID oppId){
         try {
             Blob body;
             PageReference pageRef = new PageReference ('/apex/TemplateForProposal');
+            
             pageRef.getParameters().put('proposalId', proposalId);
             pageRef.getParameters().put('oppId', oppId);
-            
             body = pageRef.getContentAsPDF();
+            
             ContentVersion cont = new ContentVersion();
             cont.VersionData = body;
-            
-            // .......//
-            //insert cont;
-            //......//
 
-            //insert contentDocumentLink;
-            //return contentDocumentLink.ContentDocumentId;
-            return 'contentDocumentLink.ContentDocumentId';
+            
+            cont.ContentLocation = 'S';
+            cont.PathOnClient = 'TemplateForProposal.pdf';
+            cont.Title = 'TemplateForProposal' + ' ' + Datetime.now();
+            insert cont;
+
+            List<ContentVersion> contentVersions = [
+                SELECT ContentDocumentId FROM ContentVersion WHERE Id = :cont.Id
+            ];
+
+            ContentDocumentLink cdLink = new ContentDocumentLink();
+            cdLink.LinkedEntityId = proposalId;
+            cdLink.ContentDocumentId = contentVersions.get(0).ContentDocumentId;
+            cdLink.shareType = 'V';
+            insert cdLink;
+            return cdLink.ContentDocumentId;            
+        } catch (Exception e) {
+            
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static ID deleteProposal(ID id){
+        try {
+            Database.DeleteResult result = Database.delete(id);
+            return result.getId();
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

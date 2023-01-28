@@ -26,9 +26,9 @@ export default class EquipmentList extends LightningElement {
     @track selected = [];
 
 
-    get isEmpty (){
-        return !this.equipments.length>0;
-    }
+    // get isEmpty (){
+    //     return !this.equipments.length>0;
+    // }
 
     get isDisabled (){
         return this.selected.length === 0;
@@ -47,6 +47,7 @@ export default class EquipmentList extends LightningElement {
 
     cancel(){
         console.log('cancel creating proposal');
+        this.dispatchEvent(new CustomEvent('close'))
     }
 
     save(){        
@@ -59,10 +60,12 @@ export default class EquipmentList extends LightningElement {
             .then(ids => {
                 console.log('then waiting for')
                 console.log('created prop', JSON.stringify(ids));
+                this.dispatchEvent(new CustomEvent('close'));
                 
             })
             .catch(error => {
-                console.log('error ', error)
+                console.log('error ', error);
+                this.dispatchEvent(new CustomEvent('close'));
             });        
     }
 

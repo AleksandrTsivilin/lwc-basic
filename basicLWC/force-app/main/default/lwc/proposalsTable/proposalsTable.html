@@ -1,0 +1,45 @@
+<template>  
+    
+    <template if:true={isShowPreview}>
+        <c-modal-preview preview={contentDocumentId} opp-id={recordId}  onclose={close} onsubmit={send}></c-modal-preview>
+    </template>
+
+    <template if:true={isShowForm}>
+        <c-modal-container onclose={closeForm} title="New Proposal">
+            <c-proposal-form onclose={closeForm}></c-proposal-form>
+        </c-modal-container>
+    </template>
+     
+    <!-- add button -->
+    <div class="slds-float_right slds-p-around_small">
+        <lightning-button
+            label='add'           
+            onclick={toAdd}
+        >
+        </lightning-button>
+        
+        
+    </div>
+    
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-m-top_x-small">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <template for:each={columns} for:item="column" for:index="i">
+                    <th key={column} scope="col">
+                        <div class="slds-truncate">{column.label}</div>
+                    </th>
+                </template>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={proposals.data} for:item="item" for:index="i">
+                <c-item 
+                    key={item.Id} 
+                    index = {i}
+                    row={item} 
+                    onactionitem={handleRowAction}
+                ></c-item>                
+            </template>                               
+        </tbody>
+    </table>
+</template>

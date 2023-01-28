@@ -1,7 +1,12 @@
 <template>
     <td data-label="Some Custom Column">
         <div class="slds-truncate">
-            {row.Name}
+            {numRow} 
+        </div>
+    </td>
+    <td data-label="Some Custom Column">
+        <div class="slds-truncate">
+            <a href={recordPageUrl}>{row.Name}</a>
         </div>
     </td>
     <td data-label="Some Custom Column">
@@ -27,7 +32,7 @@
             icon-size="small"
         >
             <template for:each={actions} for:item="action" for:index="i">
-                <lightning-menu-item key={action.name} value={action.name} label={action.name} >
+                <lightning-menu-item key={action.name} value={action.name} label={action.name} data-action={action.name}>
                     
                 </lightning-menu-item>
             </template>
